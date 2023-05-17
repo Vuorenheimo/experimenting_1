@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import api_example
+from .views import get_data
 
 urlpatterns = [
     # Other URL patterns
-    path('database', api_example, name='api_example'),
+    path('api/get-data/', get_data, name='get_data'),
 ]

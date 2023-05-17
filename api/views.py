@@ -1,10 +1,9 @@
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from .models import Generator
 
 # Create your views here.
 
-@csrf_exempt
-def api_example(request):
-    print(request)
-    data = {"message": "Hello from Django!"}
-    return JsonResponse(data)
+def get_data(request):
+    data = Generator.objects.all().values()  # Retrieve all data from the table
+
+    return JsonResponse({'data': list(data)})
