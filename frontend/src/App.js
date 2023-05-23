@@ -28,6 +28,69 @@ const Password = () => {
 };
 
 
+const MyForm = () => {
+  const [selectedValues, setSelectedValues] = useState([]);
+
+  const handleCheckboxChange = (event) => {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setSelectedValues([...selectedValues, value]);
+    } else {
+      setSelectedValues(selectedValues.filter((item) => item !== value));
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Make a POST request to the Python function
+    axios.post('/api/my-function/', { selectedValues })
+      .then((response) => {
+        // Handle the response if needed
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        <input
+          type="checkbox"
+          value="#"
+          onChange={handleCheckboxChange}
+        />
+        #
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          value="!"
+          onChange={handleCheckboxChange}
+        />
+        !
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          value="_"
+          onChange={handleCheckboxChange}
+        />
+        _
+      </label><br></br>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+
 const DataDisplay = () => {
   const [data, setData] = useState([]);
 
@@ -56,6 +119,7 @@ const DataDisplay = () => {
         ))}
       </div>
       <Password />
+      <MyForm />
     </>
   );
 };

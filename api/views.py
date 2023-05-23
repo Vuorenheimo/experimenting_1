@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from .models import Generator
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -19,3 +20,15 @@ def send_results(request):
 
     # Return the result as a JSON response
     return JsonResponse({'result': result})
+
+
+@csrf_exempt
+def my_function(request):
+    if request.method == 'POST':
+        selected_values = request.POST.getlist('selectedValues[]')
+
+        # Process the selected values as needed
+        result = [1, 2, 3]
+        
+
+        return JsonResponse({'result': result})
